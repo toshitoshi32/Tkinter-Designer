@@ -1,6 +1,7 @@
 """Utility classes and functions for Figma API endpoints.
 """
 import requests
+from security import safe_requests
 
 
 class Files:
@@ -18,8 +19,7 @@ class Files:
 
     def get_file(self) -> dict:
         try:
-            response = requests.get(
-                f"{self.API_ENDPOINT_URL}/files/{self.file_key}",
+            response = safe_requests.get(f"{self.API_ENDPOINT_URL}/files/{self.file_key}",
                 headers={"X-FIGMA-TOKEN": self.token}
             )
         except ValueError:
@@ -32,8 +32,7 @@ class Files:
             return response.json()
 
     def get_image(self, item_id) -> str:
-        response = requests.get(
-            f"{self.API_ENDPOINT_URL}/images/{self.file_key}?ids={item_id}&scale=2",
+        response = safe_requests.get(f"{self.API_ENDPOINT_URL}/images/{self.file_key}?ids={item_id}&scale=2",
             headers={"X-FIGMA-TOKEN": self.token}
         )
 
