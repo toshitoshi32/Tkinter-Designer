@@ -20,8 +20,8 @@ class Files:
         try:
             response = requests.get(
                 f"{self.API_ENDPOINT_URL}/files/{self.file_key}",
-                headers={"X-FIGMA-TOKEN": self.token}
-            )
+                headers={"X-FIGMA-TOKEN": self.token}, 
+            timeout=60)
         except ValueError:
             raise RuntimeError(
                 "Invalid Input. Please check your input and try again.")
@@ -34,7 +34,7 @@ class Files:
     def get_image(self, item_id) -> str:
         response = requests.get(
             f"{self.API_ENDPOINT_URL}/images/{self.file_key}?ids={item_id}&scale=2",
-            headers={"X-FIGMA-TOKEN": self.token}
-        )
+            headers={"X-FIGMA-TOKEN": self.token}, 
+        timeout=60)
 
         return response.json()["images"][item_id]
