@@ -1,9 +1,9 @@
 """
 Small utility functions.
 """
-import requests
 from PIL import Image
 import io
+from security import safe_requests
 
 
 def find_between(s, first, last):
@@ -17,7 +17,7 @@ def find_between(s, first, last):
 
 
 def download_image(url, image_path):
-    response = requests.get(url)
+    response = safe_requests.get(url)
     content = io.BytesIO(response.content)
     im = Image.open(content)
     im = im.resize((im.size[0] // 2, im.size[1] // 2), Image.LANCZOS)
